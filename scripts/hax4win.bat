@@ -188,7 +188,7 @@ rem Functions - AUDITS NEEDED
         net user %userDel%>nul
             if %ERRORLEVEL%==0 (
                 echo [92mthis change has been successfully reverted, press any key to return to menu. . .[0m 
-                echo reverting deletion of an adiminstrator does NOT reinstate administrator
+                echo (reverting deletion of an adiminstrator does not reinstate administrator rights)
                 pause>nul
                     goto :mainMenu
             ) else (
@@ -201,7 +201,7 @@ rem Functions - AUDITS NEEDED
         
         
 :exit
-    echo are you sure you want to exit the script?
+    echo are you sure you want to exit the script? (y/n)
     set /p confirm20=
         if %confirm20%==n (goto :mainMenu)
     echo why didnt you just press the x and close the application...
