@@ -13,7 +13,7 @@ Auto-securing for Linux and Windows, complete with checklists, command compilati
 
 # Links: 
 
-# Create Pull Requests If You Have Any Additions, Thank You
+# Create Pull Requests If You Have Any Additions, Thanks
 Good luck to all future teams!
 
 
