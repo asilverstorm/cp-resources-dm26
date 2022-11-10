@@ -1,10 +1,11 @@
-# Only authorized for team Down With The Hexagon's usage - 2022-2026
+# Cyber Patriot Resources   
+Only authorized for team Down With The Hexagon's usage - 2022-2026, you may use it after
 
 # Latest Version:
 
 
 # Description: 
-Auto-securing for Linux and Windows, complete with checklists, command compilations, and self-auditing. Resources for the Cyber Patriot Competition.
+Auto-securing for Linux and Windows, complete with checklists, command compilations, and self-auditing. Compiled resources for the competition.
 
 - For Cybersecurity club of Bearden High School, TN.
 - Originally developed during CP-15 by David Mazilu.
