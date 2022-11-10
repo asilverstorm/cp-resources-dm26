@@ -4,7 +4,7 @@ title CyberPatriot Starting Script - RUN AS ADMIN
 
 rem Variables
 
-rem net session
+net session>nul
 if %errorlevel%==0 (
 	echo Admin rights granted!
     timeout /t 1 /NOBREAK>nul
@@ -18,14 +18,14 @@ if %errorlevel%==0 (
 echo confirm you have completed the forensic questions (y/n)
 set /p forensics=
     if /I %forensics%==y (
-        goto :mainmenu
+        goto :mainMenu
     ) else (
         echo then go answer them dummy
         timeout /t 2 /NOBREAK>nul
         exit
     )
     
-:mainmenu
+:mainMenu
     cls
     echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	echo " _____                       __          ___ _   _       _______ _             _    _                                  
@@ -55,181 +55,155 @@ set /p forensics=
     echo [91m66} execute order 66 [0m
     echo ~
 
-                                    rem Table Of Contents (i am aware there is probably a better way to do this, i am also ignorant)
     set /p navigate=select--
-    if %navigate%==1 (
-        goto :createUser
-    )
-    if %navigate%==01 (
-        goto :createUser
-    )
-    if %navigate%==2 (
-        echo registered two, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==02 (
-        echo registered two, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==3 (
-        echo registered three, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==03 (
-        echo registered three, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==4 (
-        echo registered four, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==04 (
-        echo registered four, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==5 (
-        echo registered five, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==05 (
-        echo registered five, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==6 (
-        echo registered six, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu 
-    )
-    if %navigate%==06 (
-        echo registered six, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu 
-    )
-    if %navigate%==7 (
-        echo registered seven, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==07 (
-        echo registered seven, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==8 (
-        echo registered eight, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==08 (
-        echo registered eight, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==9 (
-        echo registered nine, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==09 (
-        echo registered nine, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==10 (
-        echo registered 10, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu 
-    )
-    if %navigate%==11 (
-        echo registered 11, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==12 (
-        echo registered 12, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==13 (
-        echo registered 13, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==14 (
-        echo registered 14, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==15 (
-        echo registered 15, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==16 (
-        echo registered 16, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==17 (
-        echo registered 17, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==18 (
-        echo registered 18, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu
-    )
-    if %navigate%==19 (
-        echo registered 19, page unavailable, still in development, press any key to reset. . .
-        pause>nul
-        goto :mainmenu          
-    )
-    if %navigate%==20 (
-            goto :exit
-    )
 
-    echo error 404, directory not found, unknown input
-    echo press any key to reset. . . 
+rem Table Of Contents
+rem possible to condense in 2 lines? both navigation inputs and outputs into strings/tables
+        if %navigate%==1 ( goto :createUser )
+        if %navigate%==01 ( goto :createUser )
+        if %navigate%==2 ( goto :removeUser )
+        if %navigate%==02 ( goto :removeUser )
+        if %navigate%==3 ( goto :placeHolder )
+        if %navigate%==03 ( goto :placeHolder )
+        if %navigate%==4 ( goto :placeHolder )
+        if %navigate%==04 ( goto :placeHolder )
+        if %navigate%==5 ( goto :placeHolder )
+        if %navigate%==05 ( goto :placeHolder )
+        if %navigate%==6 ( goto :placeHolder )
+        if %navigate%==06 ( goto :placeHolder )
+        if %navigate%==7 ( goto :placeHolder )
+        if %navigate%==07 ( goto :placeHolder )
+        if %navigate%==8 ( goto :placeHolder )
+        if %navigate%==08 ( goto :placeHolder )
+        if %navigate%==9 ( goto :placeHolder )
+        if %navigate%==09 ( goto :placeHolder )
+        if %navigate%==10 ( goto :placeHolder )
+        if %navigate%==11 ( goto :placeHolder )
+        if %navigate%==12 ( goto :placeHolder )
+        if %navigate%==13 ( goto :placeHolder )
+        if %navigate%==14 ( goto :placeHolder )
+        if %navigate%==15 ( goto :placeHolder )
+        if %navigate%==16 ( goto :placeHolder )
+        if %navigate%==17 ( goto :placeHolder )
+        if %navigate%==18 ( goto :placeHolder )
+        if %navigate%==19 ( goto :placeHolder )
+        if %navigate%==20 ( goto :exit )
+
+        echo error 404, directory not found, unknown input
+        echo press any key to reset. . . 
+        pause>nul
+           goto :mainMenu
+
+rem Functions - AUDITS NEEDED
+
+:placeHolder
+    echo %navigate% registered, page unavailable, still in development, press any key to reset. . .
     pause>nul
-        goto :mainmenu
+    goto:mainMenu
 
-                                    rem Functions
 :createUser
     cls
+
+    rem Backs out in case of mistake
+    echo continue creating a user? (y/n) [input n to return to menu]
+    set /p confirm1=
+        if %confirm1%==n (goto :mainMenu)
+
+    rem Actually creates user (after input)
     echo creating new user...
     echo please input name of new user:
-    set /p userplus=
-    net user !userplus! /add
-    echo user !userplus! created, revert changes? (y/n) [if error occured input 'y']
-    set /p revert1=
-    if %revert1%==n (
-        echo action confirmed, press any key to return to menu. . .
-        pause>nul
-        rem audit
+    set /p userAdd=
+    net user !userAdd! /add
 
-            goto :mainmenu
-    ) else (
-        rem undo
-        echo this change has been successfully reverted, press any key to return to menu. . . 
-        pause>nul
-            goto :mainmenu
-    )
+    rem Runs a fail check
+    net user %userAdd%>nul
+        if %ERRORLEVEL%==0 (goto :continueAdd) else (
+            echo [91mfailure to add user, press any key to return to menu. . .[0m
+            pause>nul
+                goto :mainMenu
+        )
 
-:disableUser
+    :continueAdd
+        echo user [92m!userAdd![0m created, revert changes? (y/n)
+        set /p revert1=
+            if %revert1%==n (
+                echo action confirmed, press any key to return to menu. . .
+                pause>nul
+                    goto :mainMenu
+            ) else (
+                goto :revertAdd
+            )
+    
+    :revertAdd
+        net user %UserAdd% /delete
+        net user %userAdd%>nul
+            if %ERRORLEVEL%==0 (
+                echo [91mfailure to revert change, press any key to return to menu. . .[0m
+                pause>nul
+                    goto :mainMenu
+            ) else (
+                echo [92mthis change has been successfully reverted, press any key to return to menu. . .[0m 
+                pause>nul
+                    goto :mainMenu
+            )
+
+
+:removeUser
     cls
+
+    rem Backs out in case of mistake
+    echo continue removing a user? (y/n) [input n to return to menu]
+    set /p confirm2=
+        if %confirm2%==n (goto :mainMenu)
+
+    rem Actually removes user (after input)
+    echo removing a user...
+    echo please input name of unlucky user:
+    set /p userDel=
+    net user !userDel! /delete
+
+    rem Runs a fail check
+    net user %userDel%>nul
+        if %ERRORLEVEL%==0 (
+            echo [91mfailure to remove user, press any key to return to menu. . .[0m
+            pause>nul
+                goto :mainMenu
+        ) else (
+            goto :continueDel
+        )
+
+    :continueDel
+        echo user [92m!userDel![0m removed, revert changes? (y/n)
+        set /p revert2=
+            if %revert2%==n (
+                echo action confirmed, press any key to return to menu. . .
+                pause>nul
+                    goto :mainMenu
+            ) else (
+                goto :revertDel
+            )
+    
+    :revertDel
+        net user %UserDel% /add
+        net user %userDel%>nul
+            if %ERRORLEVEL%==0 (
+                echo [92mthis change has been successfully reverted, press any key to return to menu. . .[0m 
+                echo reverting deletion of an adiminstrator does NOT reinstate administrator
+                pause>nul
+                    goto :mainMenu
+            ) else (
+                echo [91mfailure to revert change, press any key to return to menu. . .[0m
+                pause>nul
+                    goto :mainMenu
+            )
+
     
         
         
 :exit
-    echo cya sucker
+    echo are you sure you want to exit the script?
+    set /p confirm20=
+        if %confirm20%==n (goto :mainMenu)
+    echo why didnt you just press the x and close the application...
     timeout /t 2 /NOBREAK>nul
     exit
