@@ -1,4 +1,4 @@
-# DISCLAIMER: Only authorized for team Down With The Hexagon's usage - 2022-2026
+# Only authorized for team Down With The Hexagon's usage - 2022-2026
 
 # Latest Version:
 
@@ -13,6 +13,6 @@ Auto-securing for Linux and Windows, complete with checklists, command compilati
 # Links: 
 
 # Create Pull Requests If You Have Any Additions, Thank You
-# Good luck to all future teams!
+Good luck to all future teams!
 
 
