@@ -28,40 +28,34 @@ rem net session>nul
 
 :mainMenu
     cls
-    echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ >> menu.txt
-	echo " _____                      __          ___ _   _      _______ _             _    _                                   ">> menu.txt
-	echo "|  __ \                     \ \        / (_) | | |    |__   __| |           | |  | |                                  ">> menu.txt
-	echo "| |  | | _____      ___ __   \ \  /\  / / _| |_| |__     | |  | |__   ___   | |__| | _____  ____ _  __ _  ___  _ __   ">> menu.txt
-	echo "| |  | |/ _ \ \ /\ / / '_ \   \ \/  \/ / | | __| '_ \    | |  | '_ \ / _ \  |  __  |/ _ \ \/ / _` |/ _` |/ _ \| '_ \  ">> menu.txt
-	echo "| |__| | (_) \ V  V /| | | |   \  /\  /  | | |_| | | |   | |  | | | |  __/  | |  | |  __/>  < (_| | (_| | (_) | | | | ">> menu.txt
-	echo "|_____/ \___/ \_/\_/ |_| |_|    \/  \/   |_|\__|_| |_|   |_|  |_| |_|\___|  |_|  |_|\___/_/\_\__,_|\__, |\___/|_| |_| ">> menu.txt
-	echo "                                                                                                    __/ |             ">> menu.txt
-    echo "                                               ~~~~~~~~~~~~~~~~~~~~~~~                             |___/              ">> menu.txt
-    echo "                                        __      ___         _                                                         ">> menu.txt
-    echo "                                        \ \    / (_)_ _  __| |_____ __ _____                                          ">> menu.txt
-    echo "                                         \ \/\/ /| | ' \/ _` / _ \ V  V (_-<                                          ">> menu.txt
-    echo "                                          \_/\_/ |_|_||_\__,_\___/\_/\_//__/                                          ">> menu.txt                        
-	echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Developer: David Mazilu~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>> menu.txt
-	echo ~  >> menu.txt
-    echo 01} create a user           02} remove a user >> menu.txt
-	echo 03} change administrator    05} set password  >> menu.txt
-	echo 05} updates                 06} edit/view groups >> menu.txt
-	echo 07} security policies       08} set audit policies  >> menu.txt
-	echo 09} defender/firewall on    10} disable services  >> menu.txt
-	echo 11} full scan machine       12} RDS configuration  >> menu.txt
-	echo 13} FTP configuration       14} launch checklist w/ notes  >> menu.txt
-	echo 15} full scan machine       16} view changes made  >> menu.txt
-    echo 17} view changelog          18} check ports/netcat  >> menu.txt
-	echo 19} save changes            20} exit  >> menu.txt
-    echo [91m66} execute order 66 [0m  >> menu.txt
-    echo ~  >> menu.txt
-
-    for /f "delims=" %%a in (menu.txt) do (
-        echo %%a
-        ping 127.0.0.1 -n 1 -w 500 >nul
-    )
+    echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+	echo " _____                      __          ___ _   _      _______ _             _    _                                   "
+	echo "|  __ \                     \ \        / (_) | | |    |__   __| |           | |  | |                                  "
+	echo "| |  | | _____      ___ __   \ \  /\  / / _| |_| |__     | |  | |__   ___   | |__| | _____  ____ _  __ _  ___  _ __   "
+	echo "| |  | |/ _ \ \ /\ / / '_ \   \ \/  \/ / | | __| '_ \    | |  | '_ \ / _ \  |  __  |/ _ \ \/ / _` |/ _` |/ _ \| '_ \  "
+	echo "| |__| | (_) \ V  V /| | | |   \  /\  /  | | |_| | | |   | |  | | | |  __/  | |  | |  __/>  < (_| | (_| | (_) | | | | "
+	echo "|_____/ \___/ \_/\_/ |_| |_|    \/  \/   |_|\__|_| |_|   |_|  |_| |_|\___|  |_|  |_|\___/_/\_\__,_|\__, |\___/|_| |_| "
+	echo "                                                                                                    __/ |             "
+    echo "                                               ~~~~~~~~~~~~~~~~~~~~~~~                             |___/              "
+    echo "                                        __      ___         _                                                         "
+    echo "                                        \ \    / (_)_ _  __| |_____ __ _____                                          "
+    echo "                                         \ \/\/ /| | ' \/ _` / _ \ V  V (_-<                                          "
+    echo "                                          \_/\_/ |_|_||_\__,_\___/\_/\_//__/                                          "                        
+	echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Developer: David Mazilu~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	echo ~ 
+    echo 01} create a user           02} remove a user 
+	echo 03} change administrator    04} set password  
+	echo 05} updates                 06} edit/view groups 
+	echo 07} security policies       08} set audit policies 
+	echo 09} defender/firewall on    10} disable services  
+	echo 11} full scan machine       12} RDS configuration  
+	echo 13} FTP configuration       14} launch checklist w/ notes   
+	echo 15} full scan machine       16} view changes made  
+    echo 17} view changelog          18} check ports/netcat  
+	echo 19} save changes            20} exit  
+    echo [91m66} execute order 66 [0m  
+    echo ~  
     
-    del menu.txt
     set /p navigate=select--
     for /l %%i in (1,1,20) do (
         if "!navigate!"=="0%%i" (
@@ -98,7 +92,7 @@ rem create user
     net user %userAdd%>nul
         
         if not defined userAdd (
-            echo Error: no user name provided. Press any key to return to menu. . .
+            echo [91merror: no user name provided. press any key to return to menu. . .[0m
             pause>nul
                 goto :mainMenu
         )        
@@ -152,8 +146,8 @@ rem create user
 
     rem Runs a fail check
 
-    if not defined userAdd (
-                echo Error: no user name provided. Press any key to return to menu. . .
+    if not defined userDel (
+                echo [91merror: no user name provided. press any key to return to menu. . .[0m
                 pause>nul
                     goto :mainMenu
             ) 
@@ -171,7 +165,7 @@ rem create user
         echo user [92m!userDel![0m removed, revert changes? (y/n)
         set /p revert2=
             if %revert2%==n (
-                echo %date% %time% - %userDel% was deleted >> log.txt
+                echo %date% %time% - %userDel% was deleted > log.txt
                 echo action confirmed, press any key to return to menu. . .
                 pause>nul
                     goto :mainMenu
@@ -197,15 +191,8 @@ rem create user
 
 :menuOption17 rem /// also add stuff like net user to like show even more sys info
     cls
-    for /f "delims=" %%a in (log.txt) do (
-        echo %%a
-        ping 127.0.0.1 -n 1 -w 500 >nul
-    )
-    
-    del menu.txt
     echo ~
     echo ~
-    net user
     echo "(more info to be added in future)"
     echo ~
     echo ~
@@ -229,7 +216,7 @@ rem create user
             echo review/revert changes? (y/n)
             set /p anakinregret=
                 if %anakinregret%==y (
-                    goto :changelog
+                    goto :menuOption17
                 )        
     ) else (
         goto :mainmenu
