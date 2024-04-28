@@ -1,10 +1,9 @@
 @echo off
 SETLOCAL enabledelayedexpansion
 title CyberPatriot Starting Script - RUN AS ADMIN
+cd /d "%~dp0" 
 
-rem Variables
-
-rem net session>nul
+net session<nul
     if %errorlevel%==0 (
 	    echo Admin rights granted!
         timeout /t 1 /NOBREAK>nul
@@ -50,10 +49,9 @@ rem net session>nul
 	echo 09} defender/firewall on    10} disable services  
 	echo 11} full scan machine       12} RDS configuration  
 	echo 13} FTP configuration       14} launch checklist w/ notes   
-	echo 15} full scan machine       16} view changes made  
+	echo 15} full scan machine       16} create backup  
     echo 17} view changelog          18} check ports/netcat  
-	echo 19} save changes            20} exit  
-    echo [91m66} execute order 66 [0m  
+	echo 19} revert all changes      20} exit   
     echo ~  
     
     set /p navigate=select--
@@ -108,7 +106,7 @@ rem create user
         echo user [92m!userAdd![0m created, revert changes? (y/n)
         set /p revert1=
             if %revert1%==n (
-                echo %date% %time% - %userAdd% was created >> log.txt
+                echo %time% - %userAdd% was created >> log.txt
                 echo action confirmed, press any key to return to menu. . .
                 pause>nul
                     goto :mainMenu
@@ -165,7 +163,7 @@ rem create user
         echo user [92m!userDel![0m removed, revert changes? (y/n)
         set /p revert2=
             if %revert2%==n (
-                echo %date% %time% - %userDel% was deleted > log.txt
+                echo %time% - %userDel% was deleted >> log.txt
                 echo action confirmed, press any key to return to menu. . .
                 pause>nul
                     goto :mainMenu
@@ -178,7 +176,7 @@ rem create user
         net user %userDel%>nul
             if %ERRORLEVEL%==0 (
                 echo [92mthis change has been successfully reverted, press any key to return to menu. . .[0m 
-                echo (reverting deletion of an adminstrator does not reinstate administrator rights)
+                echo note: reverting deletion of an adminstrator does not reinstate administrator rights
                 pause>nul
                     goto :mainMenu
             ) else (
@@ -187,40 +185,70 @@ rem create user
                     goto :mainMenu
             )
 
+:menuOption3
+    cls
+    
+    rem Backs out in case of mistake
+    echo continue changing user administrator status? (y/n) [input n to return to menu]
+    set /p confirm3=
+        if %confirm3%==n (goto :mainMenu)
+
+    :chooseUser1
+    cls
+    echo [92mall current administrators are listed below[0m
+    net localgroup Administrators
+    
+    echo enter username to edit administrator status
+    set /p userStatusEdit=
+
+        net user %userStatusEdit%>nul
+            if %ERRORLEVEL%==0 (
+                goto :editingStatus
+            ) else (
+                echo [91muser not found, press any key to try again. . .[0m   
+                pause>nul
+                goto :chooseUser1  
+            )
+
+    :editingStatus
+        cls
+        echo Editing [92m%userStatusEdit%[0m. . .
+        echo -
+        echo select (1) to grant administrator rights
+        echo select (2) to deny adminstrator rights
+        set /p grantDeny=
+            if %grantDeny%==1 (
+                net localgroup Administrators %userStatusEdit% /add
+                echo administrator rights granted, press any key to return to main menu. . .
+                echo %TIME% administrator rights granted to %userStatusEdit% >> log.txt
+                pause>nul
+                goto :mainMenu
+            ) else if %grantDeny%==2 (
+                net localgroup Administrators %userStatusEdit% /delete
+                echo administrator rights denied, press any key to return to main menu. . . 
+                echo %TIME% administrator rights denied for %userStatusEdit% >> log.txt
+                pause>nul
+                goto :mainMenu
+            ) else (
+                echo [91minvalid input, press any key to try again. . .[0m
+                pause>nul
+                goto :editingStatus
+            )
+
+
     
 
-:menuOption17 rem /// also add stuff like net user to like show even more sys info
+
+
+
+
+:menuOption17
     cls
+    type log.txt
     echo ~
-    echo ~
-    echo "(more info to be added in future)"
-    echo ~
-    echo ~
-    echo changelog can also be found in a .txt file on the directory this file is present in
     echo [92mpress any key to return to menu. . .[0m 
     pause>nul
         goto :mainMenu
-
-    rem ADD REVERT FEATURE - BOTH ALL AT ONCE AND ONE DEPENDING ON NUMBERED CHANGE
-
-    
-:order66
-    cls 
-    echo [91mare you sure you want to do this..? (y/n)[0m
-    set /p confirm66=
-        if %confirm66%==y (
-            echo input passphrase to start killing jedi kids
-            set /p execute=%
-                if %execute%==
-            rem execute
-            echo review/revert changes? (y/n)
-            set /p anakinregret=
-                if %anakinregret%==y (
-                    goto :menuOption17
-                )        
-    ) else (
-        goto :mainmenu
-    )
 
 
 :menuOption20
