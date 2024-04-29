@@ -90,9 +90,9 @@ rem create user
     net user %userAdd%>nul
         
         if not defined userAdd (
-            echo [91merror: no user name provided. press any key to return to menu. . .[0m
+            echo [91merror: no user name provided. press any key to try again. . .[0m
             pause>nul
-                goto :mainMenu
+                goto :menuOption1
         )        
         
         if %ERRORLEVEL%==0 (goto :continueAdd) else (
@@ -145,9 +145,9 @@ rem create user
     rem Runs a fail check
 
     if not defined userDel (
-                echo [91merror: no user name provided. press any key to return to menu. . .[0m
+                echo [91merror: no user name provided. press any key to try again. . .[0m
                 pause>nul
-                    goto :mainMenu
+                    goto :menuOption2
             ) 
 
     net user %userDel%>nul
@@ -176,7 +176,7 @@ rem create user
         net user %userDel%>nul
             if %ERRORLEVEL%==0 (
                 echo [92mthis change has been successfully reverted, press any key to return to menu. . .[0m 
-                echo note: reverting deletion of an adminstrator does not reinstate administrator rights
+                echo note: reverting deletion of an adminstrator does not reinstate administrator rights or passwords
                 pause>nul
                     goto :mainMenu
             ) else (
@@ -219,13 +219,13 @@ rem create user
         set /p grantDeny=
             if %grantDeny%==1 (
                 net localgroup Administrators %userStatusEdit% /add
-                echo administrator rights granted, press any key to return to main menu. . .
+                echo administrator rights granted, press any key to return to menu. . .
                 echo %TIME% administrator rights granted to %userStatusEdit% >> log.txt
                 pause>nul
                 goto :mainMenu
             ) else if %grantDeny%==2 (
                 net localgroup Administrators %userStatusEdit% /delete
-                echo administrator rights denied, press any key to return to main menu. . . 
+                echo administrator rights denied, press any key to return to menu. . . 
                 echo %TIME% administrator rights denied for %userStatusEdit% >> log.txt
                 pause>nul
                 goto :mainMenu
@@ -235,12 +235,53 @@ rem create user
                 goto :editingStatus
             )
 
+    :menuOption4
+        cls
 
-    
+        rem Backs out in case of mistake
+        echo continue changing user passwords? (y/n) [input n to return to menu]
+        set /p confirm4=
+            if %confirm4%==n (goto :mainMenu)
 
-
-
-
+        :chooseUser2
+            cls
+            echo [92mall current users are listed below[0m
+            net user
+        
+            echo input username to change password. . .
+            set /p userPasswordEdit=
+            
+                net user %userPasswordEdit%>nul
+                    if %ERRORLEVEL%==0 (
+                        goto :editingPassword
+                    ) else (
+                        echo [91muser not found, press any key to try again. . .[0m   
+                        pause>nul
+                        goto :chooseUser2  
+                    )
+        
+        :editingPassword
+            cls
+            echo Editing [92m%userPasswordEdit%[0m. . .
+            echo input new password. . .
+            set /p newPassword=
+                net user %userPasswordEdit% %newPassword%>nul
+                    if %ERRORLEVEL%==0 (
+                        echo Password changed successfully for user %userPasswordEdit%, press any key to return to menu. . .
+                        echo %TIME% User %userPasswordEdit% had their password changed to  %newPassword% >> log.txt
+                        pause>nul
+                        goto :mainMenu
+                    ) else (
+                        echo [91moperation failed, press any key to return to menu. . .[0m
+                        pause>nul
+                        goto :mainMenu    
+                    )
+                
+:menuOption5
+    cls
+    wuauclt.exe /updatenow
+    echo %TIME% windows updates started >> log.txt
+    pause>nul
 
 :menuOption17
     cls
