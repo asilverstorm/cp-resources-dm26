@@ -71,7 +71,7 @@ net session<nul
 
 
 
-rem create user
+rem Create user
 :menuOption1 
     cls
 
@@ -238,7 +238,20 @@ rem create user
 
     
 
+:menuOption6
+    cls
 
+    rem Backs out in case of mistake
+    echo continue editing groups? (y/n) [input n to return to menu]
+    set /p confirm6=
+        if %confirm6%==n (goto :mainmenu)
+
+    cls
+    start lusrmgr.msc
+    goto :mainMenu
+
+    rem I wanted to add a little waiting animation with a loop but it didn't work
+        
 
 
 
